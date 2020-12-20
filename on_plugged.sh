@@ -1,12 +1,17 @@
 #!/bin/bash
 
 LOG_FILE=/home/gregnix/Documents/Informatique/bash/DocsBackup/backups.log
-DAYS_THRESHOLD=31
-
+DAYS_THRESHOLD=1
 BACKUP_FOLDER=/media/gregnix/GregWD/Backups
+
+NOTIFICATION_PIPE=/home/gregnix/Documents/Informatique/bash/DocsBackup/pipe
 
 log() {
 	echo $(date +'%Y-%m-%d %H:%M:%S') $1 >> $LOG_FILE
+}
+
+sendNotif(){
+	echo $1 > $NOTIFICATION_PIPE
 }
 
 datediff() {
@@ -36,9 +41,6 @@ computeNbDifferentFiles(){
 }
 
 log "Starting backup scan"
-sleep 10
-notify-send "Test"
-
 f=$(echo $BACKUP_FOLDER/Back* | tail -n 1)	# Last backup folder
 
 delta=$(computeDateDelta)
@@ -52,9 +54,8 @@ then
 	log "Should do backup, sending notification"
 	msg="$delta jours depuis la dernière backup ($n fichiers differents)"
 	log "Notification: $msg"
-	notify-send "Backup?" "$msg"
+	sendNotif "$msg"
 else
-	notify-send "Backup?" "Pas besoin"
+	log "No need for backup"
 fi
-
 log "Scan done"
