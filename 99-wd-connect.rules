@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", DRIVER=="usb-storage", ACTION=="add", ATTRS{idVendor}=="1058", ATTRS{idProduct}=="0740", RUN+="/home/gregnix/Documents/Informatique/bash/DocsBackup/on_plugged.sh"
