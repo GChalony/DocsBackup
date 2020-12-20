@@ -1,0 +1,10 @@
+[Unit]
+Description=My backup script trigger
+Requires=media-gregnix-GregWD.mount
+After=media-gregnix-GregWD.mount
+
+[Service]
+ExecStart=/mnt/SharedData/Documents/Informatique/bash/DocsBackup/on_plugged.sh
+
+[Install]
+WantedBy=media-gregnix-GregWD.mount
