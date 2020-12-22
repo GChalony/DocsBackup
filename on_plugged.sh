@@ -34,7 +34,7 @@ computeNbDifferentFiles(){
 	while read p;
 		do 
 			folder=$(basename $p);
-			d=$(diff $p $f/$folder | wc -l);
+			d=$(diff -q $p $f/$folder | wc -l);
 			n=$(( n + d ));
 	done < folders_to_backup.txt
 	echo $n
